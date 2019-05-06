@@ -35,13 +35,58 @@ https://github.com/dariustehrani/bokeh-on-docker
 * Open a browser and point it to http://localhost:8080
 You should see a simple bokeh demo app.
 
+**Did this work for you?**  
+Excellent. Within your project directory perform:
+````git add . ````
+````git commit . -m "your commit message"````
+````git push````
+Visit the repository view in Azure DevOps to check if your code has arrived there.
+
+
 
 # Azure Container Registry (azurecr.io)
-This will create your your main container registry.
-````az acr create -n ACRNAME -g MyResourceGroup --sku Standard````
+Typically we would not want to build and persist Docker images locally but have Azure DevOps manage this for us. Let's create a Container Registry. You can do this in the portal or using the following Azure CLI commands:
+````az account show````
+If you are not logged in, run:
+````az login````
+
+Create a resource group:
+````az group create -l westeurope -n bokehondockerYOURNAME```` 
+
+Create your azure container registry
+````az acr create -n bokehYOURNAME -g bokehondockerYOURNAME --sku Standard````
 
 azure container registry docker login
-````az acr login --name ACRNAME -l westeurope````
+````az acr login --name bokehYOURNAME -l westeurope````
+
+
+# Azure Pipeline Setup
+
+### Create a new service principal (SP)
+The SP will be used by Azure DevOps to connect to your Azure subscription and manage resources on your behalf.
+You need to replace the values with your subscription ID and Resource Group Name.
+````az account show````  
+````az ad sp create-for-rbac -n "bokehondocker" --role contributor --scopes /subscriptions/{SubID}/resourceGroups/{ResourceGroup1}````
+
+# Setup Azure DevOps Service Connections
+
+## AzureRM Service connection
+Insert the credentials you receive here:
+* Proceed to your Azure DevOps project.
+* Click "Project settings" -> "Service connections" -> "New service connection" -> Select "Azure Resource Manager".
+* Define a meaningful name. Select 
+"Scope:Subscription" 
+"Subscription: YOURSUBSCRIPTION"
+"Resource Group: NAMEOFRGYOUCREATED"
+* Click "use the automated version of the service connection dialog."
+* Insert the AppID from the shell output into "Service principal client id":
+* Insert the key into "Service principal client ID"
+* Click "Verify connection"
+* Make sure you tick the "Allow all pipeline to use this connection" box.
+
+## Azure Container Registry Service connection:
+* Click "New servic connection" and select "Docker Registry".
+* Select "Azure Container Registry" and fill out the remaining information.
 
 
 # Shiny R on Microft Open R (ADVANCED USERS ONLY)
@@ -56,11 +101,3 @@ The following example will build shiny app container. You will need to modify th
 ````FROM YOUR.azurecr.io/mro-shiny-base:latest````
 
 https://github.com/dariustehrani/mro-on-docker
-
-# Azure Pipeline Setup
-
-### Create a new service principal (SP)
-The SP will be used by Azure DevOps to connect to your Azure subscription and manage resources on your behalf.
-
-````az account show````  
-````az ad sp create-for-rbac -n "bokehondocker" --role contributor --scopes /subscriptions/YOURSUBSCRIPTIONIDGOESHERE````
