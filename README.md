@@ -58,7 +58,7 @@ Create your azure container registry
 ````az acr create -n bokehYOURNAME -g bokehondockerYOURNAME --sku Standard --admin-enabled````
 
 azure container registry docker login
-````az acr login --name bokehYOURNAME -l westeurope````  
+````az acr login -name bokehYOURNAME````  
 
 (optional) show the current username and password
 ````az acr credential show -n bokehyourname````
