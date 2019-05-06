@@ -1,6 +1,9 @@
 # advanced-analytics-apps-on-azure-appservice
 Instructions on how to deploy containerized Data Analytics on Azure App Service.
 
+# Overview
+![analytics-docker-appservice-overview](/images/overview.png)
+
 # Required Tools
 Please make sure you have the following tools installed on your machine.  
 ### Code Editor: Visual Studio Code
@@ -87,7 +90,16 @@ Insert the credentials you receive here:
 ## Azure Container Registry Service connection:
 * Click "New servic connection" and select "Docker Registry".
 * Select "Azure Container Registry" and fill out the remaining information.
+* Take note of your service connection names.
 
+# Bring up the Azure DevOps Pipeline
+* Click on "Pipelines" -> "Builds"
+* Click "+ New"
+* Select "Azure Repos Git"
+* Azure DevOps shall detect an existing azure-pipelines.yml in the repository.
+* You will need to customize the service connections accordingly. Leave the rest as is.
+* Click "Run"
+* Proceed to the "Pipelines" overview and click on the pipeline you created.
 
 # Shiny R on Microft Open R (ADVANCED USERS ONLY)
 As building the R Packages take a lot of time, the following example separates the creation of the runtime container from the actual Shiny app container. This will save 18 Minutes on average per deployment. Secondly you might want to set up a scheduled trigger, e.g. on a weekly basis so that your base images always includes latest updates and patches.
