@@ -48,17 +48,20 @@ Visit the repository view in Azure DevOps to check if your code has arrived ther
 # Azure Container Registry (azurecr.io)
 Typically we would not want to build and persist Docker images locally but have Azure DevOps manage this for us. Let's create a Container Registry. You can do this in the portal or using the following Azure CLI commands:
 ````az account show````
-If you are not logged in, run:
+If you are not logged in, run:  
 ````az login````
 
 Create a resource group:
 ````az group create -l westeurope -n bokehondockerYOURNAME```` 
 
 Create your azure container registry
-````az acr create -n bokehYOURNAME -g bokehondockerYOURNAME --sku Standard````
+````az acr create -n bokehYOURNAME -g bokehondockerYOURNAME --sku Standard --admin-enabled````
 
 azure container registry docker login
-````az acr login --name bokehYOURNAME -l westeurope````
+````az acr login --name bokehYOURNAME -l westeurope````  
+
+(optional) show the current username and password
+````az acr credential show -n bokehyourname````
 
 # Azure Pipeline Setup
 
