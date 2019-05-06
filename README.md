@@ -6,13 +6,13 @@ Instructions on how to deploy containerized Data Analytics on Azure App Service.
 
 # Required Tools
 Please make sure you have the following tools installed on your machine.  
-### Code Editor: Visual Studio Code
+* Code Editor: Visual Studio Code
 https://code.visualstudio.com/ 
-### git source-code management
+* git source-code management
 https://git-scm.com/
-### azure command line interface 'az'
+* azure command line interface 'az'
 https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest (Azure CLI) 
-### Docker for Windows
+* Docker for Windows
 https://docs.docker.com/docker-for-windows/install/
 
 # Create an Azure DevOps project
@@ -22,11 +22,11 @@ We will use Azure DevOps to host the source-code and secondly utilize Azure Pipe
 * Pleasse refere to https://docs.microsoft.com/en-us/azure/devops/organizations/projects/create-project?view=azure-devops for further guidance.
 
 # Clone the repository
-In the project please proceed to "Repos".
+In the project please proceed to "Repos".  
 Follow the instructions to clone the repository to your local computer.
 
 # Download the example project for Bokeh
-Please proceed to the following URL.  
+Please proceed to the following URL.    
 **Please just perform the ZIP download and extract the content in the previously cloned git repository**
 https://github.com/dariustehrani/bokeh-on-docker
 
@@ -39,13 +39,11 @@ https://github.com/dariustehrani/bokeh-on-docker
 You should see a simple bokeh demo app.
 
 **Did this work for you?**  
-Excellent. Within your project directory perform:
-````git add . ````
-````git commit . -m "your commit message"````
-````git push````
+Excellent. Within your project directory perform:  
+````git add . ````  
+````git commit . -m "your commit message"````  
+````git push````  
 Visit the repository view in Azure DevOps to check if your code has arrived there.
-
-
 
 # Azure Container Registry (azurecr.io)
 Typically we would not want to build and persist Docker images locally but have Azure DevOps manage this for us. Let's create a Container Registry. You can do this in the portal or using the following Azure CLI commands:
@@ -62,12 +60,11 @@ Create your azure container registry
 azure container registry docker login
 ````az acr login --name bokehYOURNAME -l westeurope````
 
-
 # Azure Pipeline Setup
 
 ### Create a new service principal (SP)
 The SP will be used by Azure DevOps to connect to your Azure subscription and manage resources on your behalf.
-You need to replace the values with your subscription ID and Resource Group Name.
+You need to replace the values with your subscription ID and Resource Group Name.  
 ````az account show````  
 ````az ad sp create-for-rbac -n "bokehondocker" --role contributor --scopes /subscriptions/{SubID}/resourceGroups/{ResourceGroup1}````
 
@@ -77,14 +74,14 @@ You need to replace the values with your subscription ID and Resource Group Name
 Insert the credentials you receive here:
 * Proceed to your Azure DevOps project.
 * Click "Project settings" -> "Service connections" -> "New service connection" -> Select "Azure Resource Manager".
-* Define a meaningful name. Select 
-"Scope:Subscription" 
-"Subscription: YOURSUBSCRIPTION"
-"Resource Group: NAMEOFRGYOUCREATED"
+* Define a meaningful name. Select  
+"Scope:Subscription"  
+"Subscription: YOURSUBSCRIPTION"  
+"Resource Group: NAMEOFRGYOUCREATED"  
 * Click "use the automated version of the service connection dialog."
-* Insert the AppID from the shell output into "Service principal client id":
-* Insert the key into "Service principal client ID"
-* Click "Verify connection"
+* Insert the AppID from the shell output into "Service principal client id" . 
+* Insert the key into "Service principal client ID".
+* Click "Verify connection".  
 * Make sure you tick the "Allow all pipeline to use this connection" box.
 
 ## Azure Container Registry Service connection:
