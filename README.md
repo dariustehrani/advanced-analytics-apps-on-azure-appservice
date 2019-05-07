@@ -106,8 +106,8 @@ Insert the credentials you receive here:
 # Azure Web App
 * Create a new Web App on https://portal.azure.com
 * Choose your subscription and resource group and select a compact but meaningful name.
-* Choose Docker Image, Linux and the location West Europe 
-* Create a new App Service Plan with the SKU P1v2
+* Choose "Docker Image", "Linux" and the location "West Europe" 
+* Create a new App Service Plan with the SKU "P1v2"
 * Leave the rest as is and create the App Service
 
 ![create-web-app-view](/images/createwebapp.png)
