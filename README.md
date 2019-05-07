@@ -19,7 +19,7 @@ https://docs.docker.com/docker-for-windows/install/
 We will use Azure DevOps to host the source-code and secondly utilize Azure Pipelines to automate build and deployment tasks.
 
 * login at https://dev.azure.com using your corporate credentials.
-* Pleasse refere to https://docs.microsoft.com/en-us/azure/devops/organizations/projects/create-project?view=azure-devops for further guidance.
+* Please refer to https://docs.microsoft.com/en-us/azure/devops/organizations/projects/create-project?view=azure-devops for further guidance.
 
 # Clone the repository
 In your DevOps project please proceed to "Repos".  
@@ -108,8 +108,30 @@ Insert the credentials you receive here:
 * Choose your subscription and resource group and select a compact but meaningful name.
 * Choose Docker Image, Linux and the location West Europe 
 * Create a new App Service Plan with the SKU P1v2
+* Leave the rest as is and create the App Service
 
 ![create-web-app-view](/images/createwebapp.png)
+
+* Once the service has been created proceed to your App Service and click on the Container settings
+* Choose your Azure Container Registry
+with the image listed
+Tag "latest" and
+Continuous deploy: OFF
+
+* Scroll down to "Diagnostic logs" in the Monitoring section
+Enable Application Logging filesystem
+100MB quota
+30 days retention.
+Click save.
+
+* Head over to “Deployment Slots”
+Create a DEV slot. Make sure to copy the settings from the other slot.
+
+* Proceed to azure DevOps, uncomment the settings in your azure-pipeline.yml (second section) by removing the # signs.
+Modify the code to correspond with your Subscription, Resource Group, WebApp, Slot Name as well as the service connection you have created.
+* Save your settings and run the pipeline.
+
+* Find the URL of your Web App where you should see your bokeh demo app!
 
 # Shiny R on Microft Open R (ADVANCED USERS ONLY)
 As building the R Packages take a lot of time, the following example separates the creation of the runtime container from the actual Shiny app container. This will save 18 Minutes on average per deployment. Secondly you might want to set up a scheduled trigger, e.g. on a weekly basis so that your base images always includes latest updates and patches.
