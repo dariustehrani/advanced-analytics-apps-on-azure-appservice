@@ -31,7 +31,7 @@ Please proceed to the following URL.
 https://github.com/dariustehrani/bokeh-on-docker
 
 # Test the Dockerfile
-* Open Powershell (in Visual Studio Code use STRG+ö on a german keyboard)
+* Open Powershell (in Visual Studio Code use STRG+ö on a german keyboard, type powershell)
 * CD into the project folder
 * run ````docker build -t bokeh-on-docker:latest .````
 * test the image by running ````docker run -p 8080:8080 -it bokeh-on-docker:latest````
@@ -46,7 +46,7 @@ Excellent. Within your project directory perform:
 Visit the repository view in Azure DevOps to check if your code has arrived there.
 
 # Azure Container Registry (azurecr.io)
-Typically we would not want to build and persist Docker images locally but have Azure DevOps manage this for us. Let's create a Container Registry. You can do this in the portal or using the following Azure CLI commands:
+Typically we would not want to build and persist Docker images locally but have Azure DevOps manage this for us. Let's create a Container Registry. You can do this in the portal or using the following Azure CLI commands (in PowerShell):
 ````az account show````
 If you are not logged in, run:  
 ````az login````
@@ -58,7 +58,7 @@ Create your azure container registry
 ````az acr create -n bokehYOURNAME -g bokehondockerYOURNAME --sku Standard --admin-enabled````
 
 azure container registry docker login
-````az acr login -name bokehYOURNAME````  
+````az acr login --name bokehYOURNAME````  
 
 (optional) show the current username and password
 ````az acr credential show -n bokehyourname````
@@ -94,10 +94,13 @@ Insert the credentials you receive here:
 
 # Bring up the Azure DevOps Pipeline
 * Click on "Pipelines" -> "Builds"
-* Click "+ New"
-* Select "Azure Repos Git"
-* Azure DevOps shall detect an existing azure-pipelines.yml in the repository.
-* You will need to customize the service connections accordingly. Leave the rest as is.
+* Click "New Pipeline"
+* Select "Azure Repos Git" and click "Continue".
+* Choose "Hosted Ubuntu 1604" as Agent pool.
+* Select YAML and specify the path to your existing azure-pipelines.yml file.
+* Save the build pipeline
+* Go back to your Builds and choose to edit the newly created pipeline.
+* Replace the containerRegistry with your service connection name.
 * Click "Run"
 * Proceed to the "Pipelines" overview and click on the pipeline you created.
 
