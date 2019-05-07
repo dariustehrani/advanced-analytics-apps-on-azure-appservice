@@ -22,8 +22,8 @@ We will use Azure DevOps to host the source-code and secondly utilize Azure Pipe
 * Pleasse refere to https://docs.microsoft.com/en-us/azure/devops/organizations/projects/create-project?view=azure-devops for further guidance.
 
 # Clone the repository
-In the project please proceed to "Repos".  
-Follow the instructions to clone the repository to your local computer.
+In your DevOps project please proceed to "Repos".  
+Clone the repository to your local computer.
 
 # Download the example project for Bokeh
 Please proceed to the following URL.    
