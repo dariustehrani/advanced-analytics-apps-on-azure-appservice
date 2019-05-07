@@ -99,10 +99,17 @@ Insert the credentials you receive here:
 * Choose "Hosted Ubuntu 1604" as Agent pool.
 * Select YAML and specify the path to your existing azure-pipelines.yml file.
 * Save the build pipeline
-* Go back to your Builds and choose to edit the newly created pipeline.
+* Proceed to the "Pipelines" overview and choose to edit the newly created pipeline.
 * Replace the containerRegistry with your service connection name.
 * Click "Run"
-* Proceed to the "Pipelines" overview and click on the pipeline you created.
+
+# Azure Web App
+* Create a new Web App on https://portal.azure.com
+* Choose your subscription and resource group and select a compact but meaningful name.
+* Choose Docker Image, Linux and the location West Europe 
+* Create a new App Service Plan with the SKU P1v2
+
+![create-web-app-view](/images/createwebapp.png)
 
 # Shiny R on Microft Open R (ADVANCED USERS ONLY)
 As building the R Packages take a lot of time, the following example separates the creation of the runtime container from the actual Shiny app container. This will save 18 Minutes on average per deployment. Secondly you might want to set up a scheduled trigger, e.g. on a weekly basis so that your base images always includes latest updates and patches.
