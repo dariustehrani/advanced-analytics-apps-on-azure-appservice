@@ -110,7 +110,7 @@ Insert the credentials you receive here:
 * Create a new App Service Plan with the SKU "P1v2"
 * Leave the rest as is and create the App Service
 
-![create-web-app-view](/images/createwebapp.png)
+![create-web-app-view](/images/createwebapp.PNG)
 
 * Once the service has been created proceed to your App Service and click on the Container settings
 * Choose your Azure Container Registry
